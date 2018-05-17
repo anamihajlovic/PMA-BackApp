@@ -18,7 +18,7 @@ public class Repertoire {
     @Column(nullable = false)
     private Date end;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Facility facility;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "repertoire")

@@ -15,12 +15,15 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Rating rating;
 
+    @ManyToOne(optional = false)
+    private Event event;
+
     public Reservation() {}
 
-    public Reservation(Long id, Double totalPrice, Rating rating) {
-        this.id = id;
+    public Reservation(Double totalPrice, Rating rating, Event event) {
         this.totalPrice = totalPrice;
         this.rating = rating;
+        this.event = event;
     }
 
     public Long getId() {
@@ -45,5 +48,13 @@ public class Reservation {
 
     public void setRating(Rating rating) {
         this.rating = rating;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

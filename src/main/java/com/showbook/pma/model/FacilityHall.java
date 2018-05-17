@@ -14,7 +14,7 @@ public class FacilityHall {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Facility facility;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facilityHall")
