@@ -17,24 +17,21 @@ public class Rating {
     private Integer num;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Show show;
+    private Happening happening;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "rating")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "rating")
     private List<Reservation> reservations = new ArrayList<>();
 
     public Rating() {}
 
-    public Rating(Long id, Integer num, Show show, List<Reservation> reservations) {
+    public Rating(Long id, Integer num, Happening happening, List<Reservation> reservations) {
         this.id = id;
         this.num = num;
-        this.show = show;
+        this.happening = happening;
         this.reservations = reservations;
     }
 
-    public Show getShow() {
-        return show;
-    }
 
     public Long getId() {
         return id;
@@ -52,8 +49,12 @@ public class Rating {
         this.num = num;
     }
 
-    public void setShow(Show show) {
-        this.show = show;
+    public void setHappening(Happening happening) {
+        this.happening = happening;
+    }
+
+    public Happening getHappening() {
+        return happening;
     }
 
     public List<Reservation> getReservations() {

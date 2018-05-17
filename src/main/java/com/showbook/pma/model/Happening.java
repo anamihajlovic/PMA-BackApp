@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Show {
+public class Happening {
 
     @Id
     @GeneratedValue
@@ -35,16 +35,20 @@ public class Show {
     private Integer numOfRatings;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "show")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "happening")
     private List<Comment> comments = new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "show")
+   @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "happening")
     private List<Rating> ratings = new ArrayList<>();
 
-   public Show() {}
+   public Happening() {}
 
-    public Show(Long id, String name, String description, String type, String genre, Double duration, String performers, Double rating, Integer numOfRatings, List<Comment> comments, List<Rating> ratings) {
+    public Happening(Long id, String name, String description, String type, String genre, Double duration,
+                String performers, Double rating, Integer numOfRatings
+            , List<Comment> comments, List<Rating> ratings
+
+    ) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -145,4 +149,6 @@ public class Show {
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
     }
+
+
 }

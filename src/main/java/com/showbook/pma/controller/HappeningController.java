@@ -1,20 +1,19 @@
 package com.showbook.pma.controller;
 
-import com.showbook.pma.service.ReservationService;
-import com.showbook.pma.service.ShowService;
+import com.showbook.pma.service.HappeningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/shows")
-public class ShowController {
+public class HappeningController {
 
-    private ShowService showService;
+    private HappeningService happeningService;
 
     @Autowired
-    public ShowController(final ShowService showService) {
-        this.showService = showService;
+    public HappeningController(final HappeningService happeningService) {
+        this.happeningService = happeningService;
 
     }
 }

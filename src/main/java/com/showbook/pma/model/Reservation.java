@@ -12,7 +12,7 @@ public class Reservation {
     @Column(nullable = false)
     private Double totalPrice;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Rating rating;
 
     public Reservation() {}
