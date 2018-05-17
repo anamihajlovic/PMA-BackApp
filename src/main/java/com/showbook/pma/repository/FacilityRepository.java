@@ -8,5 +8,5 @@ import org.springframework.data.repository.query.Param;
 public interface FacilityRepository extends JpaRepository<Facility, Long>   {
 
     @Query("select b from Facility b where b.id = :id")
-    public Facility findOne(@Param("id")Long id);
+    Facility findOne(@Param("id")Long id);
 }

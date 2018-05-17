@@ -1,6 +1,8 @@
 package com.showbook.pma.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Facility {
@@ -27,17 +29,21 @@ public class Facility {
     @Column(nullable = false)
     private String address;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facility")
+    private List<FacilityHall> facilityHalls = new ArrayList<>();
+
 //    @ManyToOne
 //    private Location location;
 
 
     public Facility() {}
 
-    public Facility(String name, String descritpion, Type type, String address) {
+    public Facility(String name, String descritpion, Type type, String address, List<FacilityHall> facilityHalls) {
         this.name = name;
         this.descritpion = descritpion;
         this.type = type;
         this.address = address;
+        this.facilityHalls = facilityHalls;
     }
 
     public Long getId() {
@@ -78,5 +84,13 @@ public class Facility {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<FacilityHall> getFacilityHalls() {
+        return facilityHalls;
+    }
+
+    public void setFacilityHalls(List<FacilityHall> facilityHalls) {
+        this.facilityHalls = facilityHalls;
     }
 }
