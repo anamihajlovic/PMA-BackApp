@@ -1,6 +1,5 @@
 package com.showbook.pma.repository;
 
-import com.showbook.pma.model.Comment;
 import com.showbook.pma.model.Happening;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
