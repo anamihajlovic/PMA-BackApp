@@ -27,14 +27,18 @@ public class Event {
     @ManyToOne
     private FacilityHall facilityHall;
 
+    @ManyToOne
+    private Repertoire repertoire;
+
     public Event() {}
 
-    public Event(Date start, Date end, Double price, Happening happening, FacilityHall facilityHall) {
+    public Event(Date start, Date end, @Digits(integer = 4, fraction = 2) Double price, Happening happening, FacilityHall facilityHall, Repertoire repertoire) {
         this.start = start;
         this.end = end;
         this.price = price;
         this.happening = happening;
         this.facilityHall = facilityHall;
+        this.repertoire = repertoire;
     }
 
     public Long getId() {
@@ -83,5 +87,13 @@ public class Event {
 
     public void setFacilityHall(FacilityHall facilityHall) {
         this.facilityHall = facilityHall;
+    }
+
+    public Repertoire getRepertoire() {
+        return repertoire;
+    }
+
+    public void setRepertoire(Repertoire repertoire) {
+        this.repertoire = repertoire;
     }
 }

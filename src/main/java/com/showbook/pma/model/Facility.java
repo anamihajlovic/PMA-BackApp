@@ -32,18 +32,18 @@ public class Facility {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facility")
     private List<FacilityHall> facilityHalls = new ArrayList<>();
 
-//    @ManyToOne
-//    private Location location;
-
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facility")
+    private List<Repertoire> repertoires = new ArrayList<>();
 
     public Facility() {}
 
-    public Facility(String name, String descritpion, Type type, String address, List<FacilityHall> facilityHalls) {
+    public Facility(String name, String descritpion, Type type, String address, List<FacilityHall> facilityHalls, List<Repertoire> repertoires) {
         this.name = name;
         this.descritpion = descritpion;
         this.type = type;
         this.address = address;
         this.facilityHalls = facilityHalls;
+        this.repertoires = repertoires;
     }
 
     public Long getId() {
@@ -92,5 +92,13 @@ public class Facility {
 
     public void setFacilityHalls(List<FacilityHall> facilityHalls) {
         this.facilityHalls = facilityHalls;
+    }
+
+    public List<Repertoire> getRepertoires() {
+        return repertoires;
+    }
+
+    public void setRepertoires(List<Repertoire> repertoires) {
+        this.repertoires = repertoires;
     }
 }
