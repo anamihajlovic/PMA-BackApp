@@ -38,18 +38,17 @@ public class Happening {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "happening")
     private List<Comment> comments = new ArrayList<>();
 
-   @JsonIgnore
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "happening")
     private List<Rating> ratings = new ArrayList<>();
 
-   public Happening() {}
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "happening")
+    private List<Event> events = new ArrayList<>();
 
-    public Happening(Long id, String name, String description, String type, String genre, Double duration,
-                String performers, Double rating, Integer numOfRatings
-            , List<Comment> comments, List<Rating> ratings
+    public Happening() {
+    }
 
-    ) {
-        this.id = id;
+    public Happening(String name, String description, String type, String genre, Double duration, String performers, Double rating, Integer numOfRatings, List<Comment> comments, List<Rating> ratings, List<Event> events) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -60,6 +59,7 @@ public class Happening {
         this.numOfRatings = numOfRatings;
         this.comments = comments;
         this.ratings = ratings;
+        this.events = events;
     }
 
     public Long getId() {
@@ -150,5 +150,11 @@ public class Happening {
         this.ratings = ratings;
     }
 
+    public List<Event> getEvents() {
+        return events;
+    }
 
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 }

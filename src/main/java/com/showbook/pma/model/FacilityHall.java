@@ -1,6 +1,8 @@
 package com.showbook.pma.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class FacilityHall {
@@ -14,6 +16,10 @@ public class FacilityHall {
 
     @ManyToOne
     private Facility facility;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facilityHall")
+    private List<Event> events = new ArrayList<>();
+
 
     public FacilityHall() {}
 
@@ -44,5 +50,13 @@ public class FacilityHall {
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }
