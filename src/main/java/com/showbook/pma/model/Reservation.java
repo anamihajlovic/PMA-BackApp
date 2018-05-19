@@ -1,6 +1,8 @@
 package com.showbook.pma.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Reservation {
@@ -18,12 +20,22 @@ public class Reservation {
     @ManyToOne(optional = false)
     private Event event;
 
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "reservation_seat",
+            joinColumns = { @JoinColumn(name = "reservation_id") },
+            inverseJoinColumns = { @JoinColumn(name = "seat_id") }
+    )
+    private List<Seat> seats = new ArrayList<>();
+
+
     public Reservation() {}
 
-    public Reservation(Double totalPrice, Rating rating, Event event) {
+    public Reservation(Double totalPrice, Rating rating, Event event, List<Seat> seats) {
         this.totalPrice = totalPrice;
         this.rating = rating;
         this.event = event;
+        this.seats = seats;
     }
 
     public Long getId() {
@@ -56,5 +68,13 @@ public class Reservation {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
     }
 }
