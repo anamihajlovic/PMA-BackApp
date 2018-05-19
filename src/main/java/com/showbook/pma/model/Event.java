@@ -24,7 +24,7 @@ public class Event {
     private Double price;
 
     @ManyToOne(optional = false)
-    private Happening happening;
+    private Show show;
 
     @ManyToOne(optional = false)
     private FacilityHall facilityHall;
@@ -40,12 +40,12 @@ public class Event {
 
     public Event() {}
 
-    public Event(Date start, Date end, Double price, Happening happening, FacilityHall facilityHall, Repertoire repertoire,
+    public Event(Date start, Date end, Double price, Show show, FacilityHall facilityHall, Repertoire repertoire,
                  List<Reservation> reservations, List<SeatAvailability> seatAvailabilities) {
         this.start = start;
         this.end = end;
         this.price = price;
-        this.happening = happening;
+        this.show = show;
         this.facilityHall = facilityHall;
         this.repertoire = repertoire;
         this.reservations = reservations;
@@ -84,12 +84,12 @@ public class Event {
         this.price = price;
     }
 
-    public Happening getHappening() {
-        return happening;
+    public Show getShow() {
+        return show;
     }
 
-    public void setHappening(Happening happening) {
-        this.happening = happening;
+    public void setShow(Show show) {
+        this.show = show;
     }
 
     public FacilityHall getFacilityHall() {

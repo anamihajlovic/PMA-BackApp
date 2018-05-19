@@ -13,14 +13,14 @@ public class Comment {
     private String text;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Happening happening;
+    private Show show;
 
     public Comment() {}
 
-    public Comment(Long id, String text, Happening happening) {
+    public Comment(Long id, String text, Show show) {
         this.id = id;
         this.text = text;
-        this.happening = happening;
+        this.show = show;
     }
 
 
@@ -41,11 +41,11 @@ public class Comment {
         this.text = text;
     }
 
-    public void setHappening(Happening happening) {
-        this.happening = happening;
+    public void setShow(Show show) {
+        this.show = show;
     }
 
-    public Happening getHappening() {
-        return happening;
+    public Show getShow() {
+        return show;
     }
 }

@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Happening {
+@Table(name = "[show]")
+public class Show {
 
     @Id
     @GeneratedValue
@@ -35,20 +36,24 @@ public class Happening {
     private Integer numOfRatings;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "happening")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "show")
     private List<Comment> comments = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "happening")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "show")
     private List<Rating> ratings = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "happening")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "show")
     private List<Event> events = new ArrayList<>();
 
-    public Happening() {
+    @ManyToMany(mappedBy = "interestedShows")
+    private List<User> users = new ArrayList<>();
+
+    public Show() {
     }
 
-    public Happening(String name, String description, String type, String genre, Double duration, String performers, Double rating, Integer numOfRatings, List<Comment> comments, List<Rating> ratings, List<Event> events) {
+    public Show(String name, String description, String type, String genre, Double duration, String performers, Double rating,
+                Integer numOfRatings, List<Comment> comments, List<Rating> ratings, List<Event> events, List<User> users) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -60,6 +65,7 @@ public class Happening {
         this.comments = comments;
         this.ratings = ratings;
         this.events = events;
+        this.users = users;
     }
 
     public Long getId() {
@@ -156,5 +162,13 @@ public class Happening {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
