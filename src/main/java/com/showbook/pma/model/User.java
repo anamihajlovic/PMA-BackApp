@@ -1,6 +1,8 @@
 package com.showbook.pma.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -40,10 +42,18 @@ public class User {
     @ManyToOne(optional = false)
     private Location location;
 
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "user_interestedShow",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "show_id") }
+    )
+    private List<Show> interestedShows = new ArrayList<>();
+
     public  User() {}
 
     public User(Long id, String firstName, String lastName, String username, String password, String address, Integer maxDistance,
-                FacilityType facilityType, Location location) {
+                FacilityType facilityType, Location location, List<Show> interestedShows) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,6 +63,7 @@ public class User {
         this.maxDistance = maxDistance;
         this.facilityType = facilityType;
         this.location = location;
+        this.interestedShows = interestedShows;
     }
 
     public Long getId() {
@@ -125,5 +136,13 @@ public class User {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public List<Show> getInterestedShows() {
+        return interestedShows;
+    }
+
+    public void setInterestedShows(List<Show> interestedShows) {
+        this.interestedShows = interestedShows;
     }
 }

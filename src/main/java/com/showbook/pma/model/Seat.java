@@ -14,6 +14,9 @@ public class Seat {
     @Column(nullable = false)
     private Integer number;
 
+    @ManyToOne(optional = false)
+    private Row row;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "seat")
     private List<SeatAvailability> seatAvailabilities = new ArrayList<>();
 
@@ -22,9 +25,10 @@ public class Seat {
 
     public Seat() {}
 
-    public Seat(Long id, Integer number, List<Reservation> reservations, List<SeatAvailability> seatAvailabilities) {
+    public Seat(Long id, Integer number, Row row, List<Reservation> reservations, List<SeatAvailability> seatAvailabilities) {
         this.id = id;
         this.number = number;
+        this.row  = row;
         this.reservations = reservations;
         this.seatAvailabilities = seatAvailabilities;
     }
@@ -43,6 +47,14 @@ public class Seat {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Row getRow() {
+        return row;
+    }
+
+    public void setRow(Row row) {
+        this.row = row;
     }
 
     public List<Reservation> getReservations() {

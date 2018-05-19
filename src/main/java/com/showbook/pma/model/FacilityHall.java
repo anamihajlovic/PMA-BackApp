@@ -20,12 +20,16 @@ public class FacilityHall {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facilityHall")
     private List<Event> events = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facilityHall")
+    private List<Row> rows = new ArrayList<>();
 
     public FacilityHall() {}
 
-    public FacilityHall(String name, Facility facility) {
+    public FacilityHall(String name, Facility facility, List<Event> events, List<Row> rows) {
         this.name = name;
         this.facility = facility;
+        this.events = events;
+        this.rows = rows;
     }
 
     public Long getId() {
@@ -58,5 +62,13 @@ public class FacilityHall {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public List<Row> getRows() {
+        return rows;
+    }
+
+    public void setRows(List<Row> rows) {
+        this.rows = rows;
     }
 }
