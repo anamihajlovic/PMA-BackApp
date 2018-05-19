@@ -3,7 +3,6 @@ package com.showbook.pma.service;
 import com.showbook.pma.model.Location;
 import com.showbook.pma.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
