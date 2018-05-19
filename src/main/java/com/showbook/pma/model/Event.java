@@ -35,9 +35,13 @@ public class Event {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "event")
     private List<Reservation> reservations = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "event")
+    private List<SeatAvailability> seatAvailabilities = new ArrayList<>();
+
     public Event() {}
 
-    public Event(Date start, Date end, Double price, Happening happening, FacilityHall facilityHall, Repertoire repertoire, List<Reservation> reservations) {
+    public Event(Date start, Date end, Double price, Happening happening, FacilityHall facilityHall, Repertoire repertoire,
+                 List<Reservation> reservations, List<SeatAvailability> seatAvailabilities) {
         this.start = start;
         this.end = end;
         this.price = price;
@@ -45,6 +49,7 @@ public class Event {
         this.facilityHall = facilityHall;
         this.repertoire = repertoire;
         this.reservations = reservations;
+        this.seatAvailabilities = seatAvailabilities;
     }
 
     public Long getId() {
@@ -109,5 +114,13 @@ public class Event {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public List<SeatAvailability> getSeatAvailabilities() {
+        return seatAvailabilities;
+    }
+
+    public void setSeatAvailabilities(List<SeatAvailability> seatAvailabilities) {
+        this.seatAvailabilities = seatAvailabilities;
     }
 }
