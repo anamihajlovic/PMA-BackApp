@@ -29,6 +29,9 @@ public class Facility {
     @Column(nullable = false)
     private String address;
 
+    @ManyToOne(optional = false)
+    private Location location;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "facility")
     private List<FacilityHall> facilityHalls = new ArrayList<>();
 
@@ -37,11 +40,13 @@ public class Facility {
 
     public Facility() {}
 
-    public Facility(String name, String descritpion, Type type, String address, List<FacilityHall> facilityHalls, List<Repertoire> repertoires) {
+    public Facility(String name, String description, Type type, String address, Location location,
+                    List<FacilityHall> facilityHalls, List<Repertoire> repertoires) {
         this.name = name;
-        this.descritpion = descritpion;
+        this.descritpion = description;
         this.type = type;
         this.address = address;
+        this.location = location;
         this.facilityHalls = facilityHalls;
         this.repertoires = repertoires;
     }
@@ -84,6 +89,14 @@ public class Facility {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public List<FacilityHall> getFacilityHalls() {

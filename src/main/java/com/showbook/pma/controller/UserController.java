@@ -25,7 +25,6 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getUser(@PathVariable("id") Long id){
 
-        System.out.println("Ovde je pogodilooo");
         return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
     }
 }

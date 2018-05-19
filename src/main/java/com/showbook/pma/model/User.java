@@ -37,9 +37,13 @@ public class User {
     @Column(nullable = false)
     private FacilityType facilityType;
 
+    @ManyToOne(optional = false)
+    private Location location;
+
     public  User() {}
 
-    public User(Long id, String firstName, String lastName, String username, String password, String address, Integer maxDistance, FacilityType facilityType) {
+    public User(Long id, String firstName, String lastName, String username, String password, String address, Integer maxDistance,
+                FacilityType facilityType, Location location) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,6 +52,7 @@ public class User {
         this.address = address;
         this.maxDistance = maxDistance;
         this.facilityType = facilityType;
+        this.location = location;
     }
 
     public Long getId() {
@@ -112,5 +117,13 @@ public class User {
 
     public void setFacilityType(FacilityType facilityType) {
         this.facilityType = facilityType;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
