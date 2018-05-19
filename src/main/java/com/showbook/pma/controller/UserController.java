@@ -27,4 +27,11 @@ public class UserController {
 
         return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
     }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/registr", method = RequestMethod.POST)
+    public ResponseEntity<User> getUser(@RequestBody User user){
+        user.setFacilityType(User.FacilityType.ALL);
+        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+    }
 }

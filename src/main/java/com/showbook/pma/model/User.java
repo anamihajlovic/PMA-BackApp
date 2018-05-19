@@ -39,7 +39,7 @@ public class User {
     @Column(nullable = false)
     private FacilityType facilityType;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Location location;
 
     @ManyToMany(cascade = { CascadeType.ALL })
