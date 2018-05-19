@@ -14,15 +14,19 @@ public class Seat {
     @Column(nullable = false)
     private Integer number;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "seat")
+    private List<SeatAvailability> seatAvailabilities = new ArrayList<>();
+
     @ManyToMany(mappedBy = "seats")
     private List<Reservation> reservations = new ArrayList<>();
 
     public Seat() {}
 
-    public Seat(Long id, Integer number, List<Reservation> reservations) {
+    public Seat(Long id, Integer number, List<Reservation> reservations, List<SeatAvailability> seatAvailabilities) {
         this.id = id;
         this.number = number;
         this.reservations = reservations;
+        this.seatAvailabilities = seatAvailabilities;
     }
 
     public Long getId() {
@@ -47,6 +51,14 @@ public class Seat {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public List<SeatAvailability> getSeatAvailabilities() {
+        return seatAvailabilities;
+    }
+
+    public void setSeatAvailabilities(List<SeatAvailability> seatAvailabilities) {
+        this.seatAvailabilities = seatAvailabilities;
     }
 }
 
