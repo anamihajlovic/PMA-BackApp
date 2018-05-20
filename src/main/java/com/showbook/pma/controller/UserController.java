@@ -1,6 +1,7 @@
 package com.showbook.pma.controller;
 
 
+import com.showbook.pma.controller.dto.UserCredentialsDto;
 import com.showbook.pma.model.User;
 import com.showbook.pma.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,11 @@ public class UserController {
     public ResponseEntity<User> getUser(@RequestBody User user){
         user.setFacilityType(User.FacilityType.ALL);
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<User> login(@RequestBody UserCredentialsDto userCredentialsDto) {
+        return new ResponseEntity<>(userService.login(userCredentialsDto), HttpStatus.OK);
     }
 }

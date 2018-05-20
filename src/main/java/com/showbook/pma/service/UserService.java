@@ -1,5 +1,6 @@
 package com.showbook.pma.service;
 
+import com.showbook.pma.controller.dto.UserCredentialsDto;
 import com.showbook.pma.model.User;
 import com.showbook.pma.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class UserService {
 
     public void delete(User user){
         userRepository.delete(user);
+    }
+
+    public User login(UserCredentialsDto userCredentialsDto) {
+        return userRepository.findByUsernameAndPassword(userCredentialsDto.getUsername(), userCredentialsDto.getPassword());
     }
 
 }
