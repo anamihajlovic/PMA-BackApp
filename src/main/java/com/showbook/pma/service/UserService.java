@@ -34,4 +34,10 @@ public class UserService {
         return userRepository.findByUsernameAndPassword(userCredentialsDto.getUsername(), userCredentialsDto.getPassword());
     }
 
+    public User changePass(UserCredentialsDto user) {
+        User foundUser = userRepository.findByUsername(user.getUsername());
+        foundUser.setPassword(user.getPassword());
+        return userRepository.save(foundUser);
+    }
+
 }
