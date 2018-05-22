@@ -14,9 +14,6 @@ public class Facility {
     @Column(nullable = false)
     private  String name;
 
-    @Column(nullable = false)
-    private String descritpion;
-
     public enum Type {
         CINEMA,
         THEATER
@@ -40,10 +37,9 @@ public class Facility {
 
     public Facility() {}
 
-    public Facility(String name, String description, Type type, String address, Location location,
+    public Facility(String name, Type type, String address, Location location,
                     List<FacilityHall> facilityHalls, List<Repertoire> repertoires) {
         this.name = name;
-        this.descritpion = description;
         this.type = type;
         this.address = address;
         this.location = location;
@@ -65,14 +61,6 @@ public class Facility {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescritpion() {
-        return descritpion;
-    }
-
-    public void setDescritpion(String descritpion) {
-        this.descritpion = descritpion;
     }
 
     public Type getType() {

@@ -11,7 +11,7 @@ public class Location {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false,  length = 80)
+    @Column(nullable = false, unique = true, length = 80)
     private String name;
 
     @Column(length = 10)

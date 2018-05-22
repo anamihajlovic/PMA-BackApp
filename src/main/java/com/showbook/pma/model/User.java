@@ -42,6 +42,9 @@ public class User {
     @ManyToOne(optional = true)
     private Location location;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Reservation> reservations = new ArrayList<>();
+
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "user_interestedShow",
@@ -53,7 +56,7 @@ public class User {
     public  User() {}
 
     public User(Long id, String firstName, String lastName, String username, String password, String address, Integer maxDistance,
-                FacilityType facilityType, Location location, List<Show> interestedShows) {
+                FacilityType facilityType, Location location, List<Reservation> reservations, List<Show> interestedShows) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,6 +66,7 @@ public class User {
         this.maxDistance = maxDistance;
         this.facilityType = facilityType;
         this.location = location;
+        this.reservations = reservations;
         this.interestedShows = interestedShows;
     }
 
@@ -144,5 +148,13 @@ public class User {
 
     public void setInterestedShows(List<Show> interestedShows) {
         this.interestedShows = interestedShows;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

@@ -14,7 +14,7 @@ public class Rating {
     private Long id;
 
     @Column(nullable = false, length = 1)
-    private Integer num;
+    private Integer rate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Show show;
@@ -25,9 +25,9 @@ public class Rating {
 
     public Rating() {}
 
-    public Rating(Long id, Integer num, Show show, List<Reservation> reservations) {
+    public Rating(Long id, Integer rate, Show show, List<Reservation> reservations) {
         this.id = id;
-        this.num = num;
+        this.rate = rate;
         this.show = show;
         this.reservations = reservations;
     }
@@ -38,15 +38,15 @@ public class Rating {
     }
 
     public Integer getNum() {
-        return num;
+        return rate;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public void setNum(Integer rate) {
+        this.rate = rate;
     }
 
     public void setShow(Show show) {

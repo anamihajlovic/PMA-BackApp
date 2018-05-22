@@ -20,16 +20,25 @@ public class Show {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false, length = 5)
-    private String type;
+    public enum Type {
+        MOVIE,
+        PLAY
+    }
 
-    @Column(nullable = false, length = 10)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Type type;
+
+    @Column(nullable = false, length = 50)
     private String genre;
 
+    @Column(nullable = false)
     private Double duration;
 
-    @Column(nullable = false)
     private String performers;
+
+    @Column(nullable = false)
+    private String directors;
 
     private Double rating;
 
@@ -52,14 +61,15 @@ public class Show {
     public Show() {
     }
 
-    public Show(String name, String description, String type, String genre, Double duration, String performers, Double rating,
-                Integer numOfRatings, List<Comment> comments, List<Rating> ratings, List<Event> events, List<User> users) {
+    public Show(String name, String description, Type type, String genre, Double duration, String performers, String directors,
+                Double rating, Integer numOfRatings, List<Comment> comments, List<Rating> ratings, List<Event> events, List<User> users) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.genre = genre;
         this.duration = duration;
         this.performers = performers;
+        this.directors =directors;
         this.rating = rating;
         this.numOfRatings = numOfRatings;
         this.comments = comments;
@@ -78,10 +88,6 @@ public class Show {
 
     public String getDescription() {
         return description;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getGenre() {
@@ -114,10 +120,6 @@ public class Show {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void setGenre(String genre) {
@@ -170,5 +172,21 @@ public class Show {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getDirectors() {
+        return directors;
+    }
+
+    public void setDirectors(String directors) {
+        this.directors = directors;
     }
 }

@@ -14,26 +14,30 @@ public class Reservation {
     @Column(nullable = false)
     private Double totalPrice;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Rating rating;
+
+    @ManyToOne(optional = false)
+    private User user;
 
     @ManyToOne(optional = false)
     private Event event;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name = "reservation_seat",
+            name = "reservation_seatAvailability",
             joinColumns = { @JoinColumn(name = "reservation_id") },
-            inverseJoinColumns = { @JoinColumn(name = "seat_id") }
+            inverseJoinColumns = { @JoinColumn(name = "seat_availability_id") }
     )
-    private List<Seat> seats = new ArrayList<>();
+    private List<SeatAvailability> seats = new ArrayList<>();
 
 
     public Reservation() {}
 
-    public Reservation(Double totalPrice, Rating rating, Event event, List<Seat> seats) {
+    public Reservation(Double totalPrice, Rating rating, User user, Event event, List<SeatAvailability> seats) {
         this.totalPrice = totalPrice;
         this.rating = rating;
+        this.user = user;
         this.event = event;
         this.seats = seats;
     }
@@ -62,6 +66,14 @@ public class Reservation {
         this.rating = rating;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Event getEvent() {
         return event;
     }
@@ -70,11 +82,11 @@ public class Reservation {
         this.event = event;
     }
 
-    public List<Seat> getSeats() {
+    public List<SeatAvailability> getSeats() {
         return seats;
     }
 
-    public void setSeats(List<Seat> seats) {
+    public void setSeats(List<SeatAvailability> seats) {
         this.seats = seats;
     }
 }
