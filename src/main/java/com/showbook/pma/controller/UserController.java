@@ -30,10 +30,10 @@ public class UserController {
     }
 
     @CrossOrigin(origins="*")
-    @RequestMapping(value = "/registr", method = RequestMethod.POST)
-    public ResponseEntity<User> getUser(@RequestBody User user){
-        user.setFacilityType(User.FacilityType.ALL);
-        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+    @RequestMapping(value = "/registr/{id}", method = RequestMethod.POST)
+    public ResponseEntity<User> getUser(@RequestBody User user,@PathVariable("id") Long id_city){
+
+        return new ResponseEntity<>(userService.registr(user, id_city), HttpStatus.OK);
     }
 
     @CrossOrigin(origins="*")
