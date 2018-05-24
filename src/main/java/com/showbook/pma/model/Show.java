@@ -52,9 +52,11 @@ public class Show {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "show")
     private List<Rating> ratings = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "show")
     private List<Event> events = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "interestedShows")
     private List<User> users = new ArrayList<>();
 

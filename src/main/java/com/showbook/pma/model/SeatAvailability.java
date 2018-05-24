@@ -1,5 +1,7 @@
 package com.showbook.pma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +35,7 @@ public class SeatAvailability {
     @ManyToOne(optional = false)
     private Seat seat;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "seats")
     private List<Reservation> reservations = new ArrayList<>();
 

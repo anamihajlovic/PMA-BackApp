@@ -1,5 +1,7 @@
 package com.showbook.pma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import java.util.ArrayList;
@@ -32,9 +34,11 @@ public class Event {
     @ManyToOne(optional = false)
     private Repertoire repertoire;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "event")
     private List<Reservation> reservations = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "event")
     private List<SeatAvailability> seatAvailabilities = new ArrayList<>();
 

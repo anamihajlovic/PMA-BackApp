@@ -1,5 +1,7 @@
 package com.showbook.pma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +44,11 @@ public class User {
     @ManyToOne(optional = true)
     private Location location;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Reservation> reservations = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "user_interestedShow",

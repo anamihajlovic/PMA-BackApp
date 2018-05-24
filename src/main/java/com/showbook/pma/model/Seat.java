@@ -1,5 +1,7 @@
 package com.showbook.pma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Seat {
     @ManyToOne(optional = false)
     private Row row;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "seat")
     private List<SeatAvailability> seatAvailabilities = new ArrayList<>();
 

@@ -26,7 +26,7 @@ public class Location {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "location")
     private List<User> users = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "location")
     private List<Facility> facilities = new ArrayList<>();
 
