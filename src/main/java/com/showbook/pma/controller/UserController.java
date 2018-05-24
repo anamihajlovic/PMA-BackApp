@@ -54,4 +54,10 @@ public class UserController {
     public ResponseEntity<User> changePass(@RequestBody  UserCredentialsDto userCredentialsDto) {
         return new ResponseEntity<>(userService.changePass(userCredentialsDto), HttpStatus.OK);
     }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("id") Long id){
+        return new ResponseEntity<>(userService.update(user, id), HttpStatus.OK);
+    }
 }
