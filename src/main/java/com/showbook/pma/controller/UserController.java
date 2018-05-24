@@ -30,6 +30,13 @@ public class UserController {
     }
 
     @CrossOrigin(origins="*")
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<User> getUser(@RequestBody String username){
+        System.out.println(userService.findByUsername(username));
+        return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins="*")
     @RequestMapping(value = "/registr/{id}", method = RequestMethod.POST)
     public ResponseEntity<User> getUser(@RequestBody User user,@PathVariable("id") Long id_city){
 
