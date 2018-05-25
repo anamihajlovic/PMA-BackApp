@@ -39,7 +39,6 @@ public class UserController {
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/registr/{id}", method = RequestMethod.POST)
     public ResponseEntity<User> getUser(@RequestBody User user,@PathVariable("id") Long id_city){
-
         return new ResponseEntity<>(userService.registr(user, id_city), HttpStatus.OK);
     }
 

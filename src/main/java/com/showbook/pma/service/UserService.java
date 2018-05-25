@@ -44,11 +44,16 @@ public class UserService {
     }
 
     public User registr (User user, Long id_city) {
-        user.setFacilityType(User.FacilityType.ALL);
-        Location location = locationRepository.findOne(id_city);
-        user.setLocation(location);
-        user.setMaxDistance(10);
-        return userRepository.save(user);
+        if(userRepository.findByUsername(user.getUsername()) == null){
+            user.setFacilityType(User.FacilityType.ALL);
+            Location location = locationRepository.findOne(id_city);
+            user.setLocation(location);
+            user.setMaxDistance(10);
+            return userRepository.save(user);
+        }else {
+            return null;
+        }
+
     }
 
     public User changePass(UserCredentialsDto user) {
