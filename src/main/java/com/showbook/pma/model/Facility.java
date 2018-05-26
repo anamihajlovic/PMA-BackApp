@@ -28,6 +28,12 @@ public class Facility {
     @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
+    private String  latitude;
+
+    @Column(nullable = false)
+    private String  longitude;
+
     @ManyToOne(optional = false)
     private Location location;
 
@@ -41,11 +47,13 @@ public class Facility {
 
     public Facility() {}
 
-    public Facility(String name, Type type, String address, Location location,
-                    List<FacilityHall> facilityHalls, List<Repertoire> repertoires) {
+    public Facility(Long id, String address, String name,Facility.Type type , String latitude, String longitude, Location location, List<FacilityHall> facilityHalls, List<Repertoire> repertoires) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.location = location;
         this.facilityHalls = facilityHalls;
         this.repertoires = repertoires;
@@ -105,5 +113,21 @@ public class Facility {
 
     public void setRepertoires(List<Repertoire> repertoires) {
         this.repertoires = repertoires;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }
