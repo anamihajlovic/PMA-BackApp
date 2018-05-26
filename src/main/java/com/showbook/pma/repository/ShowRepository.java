@@ -8,5 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface ShowRepository extends JpaRepository<Show, Long>   {
 
     @Query("select b from Show b where b.id = :id")
-    public Show findOne(@Param("id")Long id);
+    Show findOne(@Param("id")Long id);
+
+
 }

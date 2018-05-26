@@ -1,9 +1,7 @@
 package com.showbook.pma.service;
 
-import com.showbook.pma.model.Rating;
 import com.showbook.pma.model.Reservation;
 import com.showbook.pma.model.User;
-import com.showbook.pma.repository.RatingRepository;
 import com.showbook.pma.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +39,19 @@ public class ReservationService {
         return reservations;
     }
 
+    public List<Reservation> findUserSeenShows(String username) {
+        User user = userService.findByUsername(username);
+        List<Reservation> reservations = reservationRepository.findAllByUser(user);
+
+        List<Reservation> seenShows = new ArrayList<>();
+        Date currentDate = new Date();
+        for (Reservation reservation : reservations) {
+            if (reservation.getEvent().getEnd().compareTo(currentDate) < 0) {
+                seenShows.add(reservation);
+            }
+        }
+        return seenShows;
+    }
 
     public Reservation save(Reservation reservation){
         return reservationRepository.save(reservation);
