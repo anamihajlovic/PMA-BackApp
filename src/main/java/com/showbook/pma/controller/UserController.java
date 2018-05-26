@@ -53,8 +53,8 @@ public class UserController {
     }
 
     @CrossOrigin(origins="*")
-    @RequestMapping(value = "/{id}/{location}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("id") Long id, @PathVariable("location") String location){
-        return new ResponseEntity<>(userService.update(user, id, location), HttpStatus.OK);
+    @RequestMapping(value = "/{username}/{location}", method = RequestMethod.PUT)
+    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("username") String username, @PathVariable("location") String location){
+        return new ResponseEntity<>(userService.update(user, username, location), HttpStatus.OK);
     }
 }

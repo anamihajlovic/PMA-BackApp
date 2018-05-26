@@ -58,8 +58,8 @@ public class UserService {
         return userRepository.save(foundUser);
     }
 
-    public User update(User user, Long id, String location) {
-        User dbUser = userRepository.findOne(id);
+    public User update(User user, String username, String location) {
+        User dbUser = userRepository.findByUsername(username);
         Location dbLocation = locationRepository.findByName(location);
 
         if (dbUser != null && dbLocation != null) {
