@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 public interface LocationRepository extends JpaRepository<Location, Long> {
 
     @Query("select b from Location b where b.id = :id")
-    public Location findOne(@Param("id")Long id);
+    Location findOne(@Param("id")Long id);
+
+    Location findByName(String name);
 
 }

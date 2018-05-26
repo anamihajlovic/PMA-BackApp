@@ -25,15 +25,13 @@ public class UserController {
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getUser(@PathVariable("id") Long id){
-
         return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
     }
 
     @CrossOrigin(origins="*")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> getUser(@RequestBody String username){
-        System.out.println(userService.findByUsername(username));
-        return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
+    public ResponseEntity<User> getUser(@RequestBody UserCredentialsDto userCredentialsDto){
+        return new ResponseEntity<>(userService.findByUsername(userCredentialsDto.getUsername()), HttpStatus.OK);
     }
 
     @CrossOrigin(origins="*")
@@ -55,8 +53,8 @@ public class UserController {
     }
 
     @CrossOrigin(origins="*")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("id") Long id){
-        return new ResponseEntity<>(userService.update(user, id), HttpStatus.OK);
+    @RequestMapping(value = "/{id}/{location}", method = RequestMethod.PUT)
+    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("id") Long id, @PathVariable("location") String location){
+        return new ResponseEntity<>(userService.update(user, id, location), HttpStatus.OK);
     }
 }

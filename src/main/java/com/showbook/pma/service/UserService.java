@@ -58,10 +58,18 @@ public class UserService {
         return userRepository.save(foundUser);
     }
 
-    public User update(User user, Long id) {
-        if(userRepository.findOne(id) != null) {
-            return userRepository.save(user);
+    public User update(User user, Long id, String location) {
+        User dbUser = userRepository.findOne(id);
+        Location dbLocation = locationRepository.findByName(location);
+
+        if (dbUser != null && dbLocation != null) {
+            dbUser.setFirstName(user.getFirstName());
+            dbUser.setLastName(user.getLastName());
+            dbUser.setAddress(user.getAddress());
+            dbUser.setLocation(dbLocation);
+            return userRepository.save(dbUser);
         }
         return null;
+
     }
 }
