@@ -25,7 +25,6 @@ public class Reservation {
     @ManyToOne(optional = false)
     private Event event;
 
-    @JsonIgnore
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "reservation_seatAvailability",

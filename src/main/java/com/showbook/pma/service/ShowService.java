@@ -4,6 +4,7 @@ package com.showbook.pma.service;
 import com.showbook.pma.model.Event;
 import com.showbook.pma.model.Repertoire;
 import com.showbook.pma.model.Show;
+import com.showbook.pma.model.User;
 import com.showbook.pma.repository.ShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class ShowService {
 
     @Autowired
     private ShowRepository showRepository;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private FacilityService facilityService;
@@ -43,16 +46,17 @@ public class ShowService {
         showRepository.delete(show);
     }
 
+<<<<<<< HEAD
     public List<Show> findShowsByFacility(Long facilltyId) {
         List<Show> result = new ArrayList<>();
         List<Repertoire> allRepertoiresForFacility = facilityService.findOne(facilltyId).getRepertoires();
-        for (int i = 0; i< allRepertoiresForFacility.size();i++) {
+        for (int i = 0; i < allRepertoiresForFacility.size(); i++) {
             System.out.println("Repertoar  id je " + allRepertoiresForFacility.get(i).getId());
-            if(allRepertoiresForFacility.get(i).getStart().after(new Date())){
+            if (allRepertoiresForFacility.get(i).getStart().after(new Date())) {
                 System.out.println("Repertoar posle danas id je " + allRepertoiresForFacility.get(i).getId());
                 List<Event> foundEvents = allRepertoiresForFacility.get(i).getEvents();
-                for(int m =0; m< foundEvents.size();m++) {
-                    if(!result.contains(foundEvents.get(m).getShow())) {
+                for (int m = 0; m < foundEvents.size(); m++) {
+                    if (!result.contains(foundEvents.get(m).getShow())) {
                         System.out.println("Show je dodat a id je " + foundEvents.get(m).getShow().getId());
                         result.add(foundEvents.get(m).getShow());
                     }
@@ -60,5 +64,13 @@ public class ShowService {
             }
         }
         return result;
+    }
+    public List<Show> findUserInterestedShows(String username) {
+        User user = userService.findByUsername(username);
+        if(user != null) {
+            return showRepository.findAllByUsers(user);
+        }
+        return null;
+
     }
 }
