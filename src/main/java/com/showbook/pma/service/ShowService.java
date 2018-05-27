@@ -46,7 +46,7 @@ public class ShowService {
         showRepository.delete(show);
     }
 
-<<<<<<< HEAD
+
     public List<Show> findShowsByFacility(Long facilltyId) {
         List<Show> result = new ArrayList<>();
         List<Repertoire> allRepertoiresForFacility = facilityService.findOne(facilltyId).getRepertoires();

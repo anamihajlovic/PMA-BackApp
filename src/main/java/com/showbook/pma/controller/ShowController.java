@@ -1,9 +1,8 @@
 package com.showbook.pma.controller;
 
-<<<<<<< HEAD
+
 import com.showbook.pma.model.Reservation;
-=======
->>>>>>> 9959616c62cf5de41710b8904b274895f6caa869
+
 import com.showbook.pma.model.Show;
 import com.showbook.pma.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
