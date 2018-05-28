@@ -1,6 +1,7 @@
 package com.showbook.pma.controller;
 
 
+
 import com.showbook.pma.controller.dto.UserCredentialsDto;
 import com.showbook.pma.model.User;
 import com.showbook.pma.service.UserService;
@@ -57,4 +58,6 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("username") String username, @PathVariable("location") String location){
         return new ResponseEntity<>(userService.update(user, username, location), HttpStatus.OK);
     }
+
+
 }

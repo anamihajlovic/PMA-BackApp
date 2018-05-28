@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 @RestController
@@ -27,4 +28,6 @@ public class FacilityController {
     public ResponseEntity<List<Facility>> getAllFacilities(){
         return new ResponseEntity<>(facilityService.findAll(), HttpStatus.OK);
     }
+
+
 }

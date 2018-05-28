@@ -1,5 +1,6 @@
 package com.showbook.pma.service;
 
+
 import com.showbook.pma.controller.dto.UserCredentialsDto;
 import com.showbook.pma.model.Location;
 import com.showbook.pma.model.User;
@@ -8,6 +9,7 @@ import com.showbook.pma.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -72,4 +74,6 @@ public class UserService {
         return null;
 
     }
+
+
 }
