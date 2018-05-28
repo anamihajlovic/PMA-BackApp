@@ -10,7 +10,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false,  length = 40)
@@ -57,10 +57,15 @@ public class User {
     )
     private List<Show> interestedShows = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Comment> comments = new ArrayList<>();
+
     public  User() {}
 
     public User(Long id, String firstName, String lastName, String username, String password, String address, Integer maxDistance,
-                FacilityType facilityType, Location location, List<Reservation> reservations, List<Show> interestedShows) {
+                FacilityType facilityType, Location location, List<Reservation> reservations, List<Show> interestedShows,
+                List<Comment> comments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,6 +77,7 @@ public class User {
         this.location = location;
         this.reservations = reservations;
         this.interestedShows = interestedShows;
+        this.comments = comments;
     }
 
     public Long getId() {
@@ -160,5 +166,13 @@ public class User {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Comment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -15,12 +15,16 @@ public class Comment {
     @ManyToOne(fetch = FetchType.EAGER)
     private Show show;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
+
     public Comment() {}
 
-    public Comment(Long id, String text, Show show) {
+    public Comment(Long id, String text, Show show, User user) {
         this.id = id;
         this.text = text;
         this.show = show;
+        this.user = user;
     }
 
 
@@ -47,5 +51,13 @@ public class Comment {
 
     public Show getShow() {
         return show;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
