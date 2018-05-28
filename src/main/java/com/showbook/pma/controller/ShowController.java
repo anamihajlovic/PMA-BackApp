@@ -1,5 +1,8 @@
 package com.showbook.pma.controller;
 
+
+import com.showbook.pma.model.Reservation;
+
 import com.showbook.pma.model.Show;
 import com.showbook.pma.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +25,16 @@ public class ShowController {
     }
 
     @CrossOrigin(origins="*")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Show>> getShowsByFacilitiy(@PathVariable("id") Long FacilitiyId) {
+        return new ResponseEntity<>(showService.findShowsByFacility(FacilitiyId), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins="*")
     @RequestMapping(value = "/interested/{username}", method = RequestMethod.GET)
     public ResponseEntity<List<Show>> getUserInterestedShows(@PathVariable("username") String username){
         return new ResponseEntity<>(showService.findUserInterestedShows(username), HttpStatus.OK);
+
     }
 
     @CrossOrigin(origins="*")

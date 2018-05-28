@@ -33,5 +33,12 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findUserSeenShows(username), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity delete(@PathVariable("id") Long id){
+        final Reservation reservation = reservationService.findOne(id);
+        reservationService.delete(reservation);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
+    }
 }
