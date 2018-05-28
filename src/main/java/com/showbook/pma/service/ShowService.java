@@ -40,4 +40,28 @@ public class ShowService {
         }
         return null;
     }
+
+    public Boolean isInterestedShow(String username, Long showId) {
+        User user = userService.findByUsername(username);
+        Show show = showRepository.findOne(showId);
+        if (user != null && show != null) {
+            List<Show> shows = showRepository.findAllByUsers(user);
+            return shows.contains(show);
+        }
+        return null;
+    }
+
+    public Show addToInterested(String username, Long showId) {
+        User user = userService.findByUsername(username);
+        Show show = showRepository.findOne(showId);
+        show.getUsers().add(user);
+        return showRepository.save(show);
+    }
+
+    public Show removeFromInterested(String username, Long showId) {
+        User user = userService.findByUsername(username);
+        Show show = showRepository.findOne(showId);
+        show.getUsers().remove(user);
+        return showRepository.save(show);
+    }
 }

@@ -32,4 +32,6 @@ public class ReservationController {
     public ResponseEntity<List<Reservation>> getUserSeenShows(@PathVariable("username") String username){
         return new ResponseEntity<>(reservationService.findUserSeenShows(username), HttpStatus.OK);
     }
+
+
 }

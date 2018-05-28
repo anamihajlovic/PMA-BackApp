@@ -57,7 +57,12 @@ public class Show {
     private List<Event> events = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "interestedShows")
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "user_interestedShow",
+            joinColumns = { @JoinColumn(name = "show_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
     private List<User> users = new ArrayList<>();
 
     public Show() {

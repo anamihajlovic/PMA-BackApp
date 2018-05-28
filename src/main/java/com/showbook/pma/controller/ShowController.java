@@ -23,7 +23,25 @@ public class ShowController {
 
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/interested/{username}", method = RequestMethod.GET)
-    public ResponseEntity<List<Show>> getUserReservations(@PathVariable("username") String username){
+    public ResponseEntity<List<Show>> getUserInterestedShows(@PathVariable("username") String username){
         return new ResponseEntity<>(showService.findUserInterestedShows(username), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/interested/{username}/{showId}", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> isInterestedShow(@PathVariable("username") String username, @PathVariable("showId") Long showId){
+        return new ResponseEntity<>(showService.isInterestedShow(username, showId), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/interested/add/{username}/{showId}", method = RequestMethod.POST)
+    public ResponseEntity<Show> addToInterested(@PathVariable("username") String username, @PathVariable("showId") Long showId){
+        return new ResponseEntity<>(showService.addToInterested(username, showId), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/interested/remove/{username}/{showId}", method = RequestMethod.POST)
+    public ResponseEntity<Show> removeFromInterested(@PathVariable("username") String username, @PathVariable("showId") Long showId){
+        return new ResponseEntity<>(showService.removeFromInterested(username, showId), HttpStatus.OK);
     }
 }
