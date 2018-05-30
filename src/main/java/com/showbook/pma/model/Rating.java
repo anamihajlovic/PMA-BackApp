@@ -13,8 +13,8 @@ public class Rating {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 1)
-    private Integer rate;
+    @Column( nullable = false, length = 1)
+    private Integer num;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Show show;
@@ -25,9 +25,9 @@ public class Rating {
 
     public Rating() {}
 
-    public Rating(Long id, Integer rate, Show show, List<Reservation> reservations) {
+    public Rating(Long id, Integer num, Show show, List<Reservation> reservations) {
         this.id = id;
-        this.rate = rate;
+        this.num = num;
         this.show = show;
         this.reservations = reservations;
     }
@@ -38,15 +38,15 @@ public class Rating {
     }
 
     public Integer getNum() {
-        return rate;
+        return num;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setNum(Integer rate) {
-        this.rate = rate;
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
     public void setShow(Show show) {

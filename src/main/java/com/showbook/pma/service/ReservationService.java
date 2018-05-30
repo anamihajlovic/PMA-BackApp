@@ -55,9 +55,9 @@ public class ReservationService {
 
         List<Reservation> seenShows = new ArrayList<>();
         Date currentDate = new Date();
-        for (Reservation reservation : reservations) {
-            if (reservation.getEvent().getEnd().before(currentDate)) {
-                seenShows.add(reservation);
+        for (int i = 0; i< reservations.size() ;i ++) {
+            if (reservations.get(i).getEvent().getEnd().before(currentDate)) {
+                seenShows.add(reservations.get(i));
             }
         }
         return seenShows;
@@ -99,10 +99,12 @@ public class ReservationService {
         } else {
             System.out.println("uslo u drugo ");
             Rating rating = ratingRepository.findOne(reservation.getRating().getId());
+            Integer oldNum = rating.getNum();
             rating.setNum(num);
             ratingRepository.save(rating);
             Show show = reservation.getEvent().getShow();
-            show.setRating(Double.parseDouble(num.toString()));
+            Double newRating = (((show.getRating()*2)-oldNum) + num) / 2;
+            show.setRating(newRating);
             showService.save(show);
 
         }

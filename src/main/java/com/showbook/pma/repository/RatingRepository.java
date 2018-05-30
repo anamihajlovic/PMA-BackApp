@@ -11,6 +11,5 @@ public interface RatingRepository extends JpaRepository<Rating, Long>   {
     @Query("select b from Rating b where b.id = :id")
     public Rating findOne(@Param("id")Long id);
 
-    @Query("select b from Rating b where b.rate = :rate")
-    public Rating findByRate(@Param("rate")Integer rate);
+
 }
