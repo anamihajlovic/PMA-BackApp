@@ -43,4 +43,8 @@ public class CommentService {
         commentRepository.save(comment);
         return comment;
     }
+
+    public List<Comment>getCommentsByShow (Long showId) {
+        return showService.findOne(showId).getComments();
+    }
 }

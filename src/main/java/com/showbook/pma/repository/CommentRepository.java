@@ -10,4 +10,5 @@ public interface CommentRepository  extends JpaRepository<Comment, Long> {
 
     @Query("select b from Comment b where b.id = :id")
     public Comment findOne(@Param("id")Long id);
+
 }

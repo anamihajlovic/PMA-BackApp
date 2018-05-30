@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/comments")
 public class CommentController {
@@ -26,4 +28,12 @@ public class CommentController {
                                             @PathVariable("username") String username){
         return new ResponseEntity<>(commentService.commentShow(comment, showId, username), HttpStatus.OK);
     }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/{showId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Comment>> getCommentsByShow(@PathVariable("showId") Long showId){
+        return new ResponseEntity<>(commentService.getCommentsByShow(showId), HttpStatus.OK);
+    }
+
+
 }
