@@ -1,5 +1,6 @@
 package com.showbook.pma.repository;
 
+import com.showbook.pma.model.Facility;
 import com.showbook.pma.model.Reservation;
 import com.showbook.pma.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     Reservation findOne(@Param("id")Long id);
 
     List<Reservation> findAllByUser(User user);
+
+    List<Reservation> findAllByUserAndEvent_FacilityHall_Facility(User user, Facility facility);
 }

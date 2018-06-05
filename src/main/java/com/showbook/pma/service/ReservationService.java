@@ -1,12 +1,8 @@
 package com.showbook.pma.service;
 
-import com.showbook.pma.model.Rating;
-import com.showbook.pma.model.Reservation;
-import com.showbook.pma.model.Show;
-import com.showbook.pma.model.User;
+import com.showbook.pma.model.*;
 import com.showbook.pma.repository.RatingRepository;
 import com.showbook.pma.repository.ReservationRepository;
-import com.showbook.pma.repository.ShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +25,9 @@ public class ReservationService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private FacilityService facilityService;
+
     public Reservation findOne(Long id){
         return reservationRepository.findOne(id);
     }
@@ -48,6 +47,16 @@ public class ReservationService {
         }
         return reservations;
     }
+
+    public List<Reservation> findUserReservationsByFacility(String username, Long facilityId) {
+        User user = userService.findByUsername(username);
+        Facility facility = facilityService.findOne(facilityId);
+        if(user != null && facility != null) {
+            return reservationRepository.findAllByUserAndEvent_FacilityHall_Facility(user, facility);
+        }
+        return null;
+    }
+
 
     public List<Reservation> findUserSeenShows(String username) {
         User user = userService.findByUsername(username);

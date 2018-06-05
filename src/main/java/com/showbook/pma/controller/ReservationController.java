@@ -1,6 +1,5 @@
 package com.showbook.pma.controller;
 
-import com.showbook.pma.model.Rating;
 import com.showbook.pma.model.Reservation;
 import com.showbook.pma.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,12 @@ public class ReservationController {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public ResponseEntity<List<Reservation>> getUserReservations(@PathVariable("username") String username){
         return new ResponseEntity<>(reservationService.findUserReservations(username), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/{username}/{facilityId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Reservation>> getUserReservationsByFacility(@PathVariable("username") String username, @PathVariable("facilityId") Long facilityId){
+        return new ResponseEntity<>(reservationService.findUserReservationsByFacility(username, facilityId), HttpStatus.OK);
     }
 
     @CrossOrigin(origins="*")
