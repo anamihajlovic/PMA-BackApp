@@ -1,10 +1,7 @@
 package com.showbook.pma.service;
 
 
-import com.showbook.pma.model.Event;
-import com.showbook.pma.model.Repertoire;
-import com.showbook.pma.model.Show;
-import com.showbook.pma.model.User;
+import com.showbook.pma.model.*;
 import com.showbook.pma.repository.ShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +21,6 @@ public class ShowService {
     @Autowired
     private FacilityService facilityService;
 
-    @Autowired
-    private RepertoireService repertoireService;
-
-    @Autowired
-    private EventService eventService;
 
     public Show findOne(Long id) {
         return showRepository.findOne(id);
@@ -71,8 +63,26 @@ public class ShowService {
             return showRepository.findAllByUsers(user);
         }
         return null;
-
     }
+
+    public List<Show> findUserInterestedShowsByFacility(String username, Long facilityId) {
+        User user = userService.findByUsername(username);
+        Facility facility = facilityService.findOne(facilityId);
+        List<Show> result = new ArrayList<>();
+
+        if (user != null && facility != null) {
+            List<Show> facilityShows = findShowsByFacility(facilityId);
+            List<Show> shows = showRepository.findDistinctByUsersAndEvents_FacilityHall_Facility(user, facility);
+            for (Show show : shows) {
+                if (facilityShows.contains(show) && !result.contains(show)) {
+                    result.add(show);
+                }
+            }
+        }
+        return result;
+    }
+
+
 
     public Boolean isInterestedShow(String username, Long showId) {
         User user = userService.findByUsername(username);

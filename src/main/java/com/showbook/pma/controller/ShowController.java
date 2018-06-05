@@ -38,7 +38,14 @@ public class ShowController {
     }
 
     @CrossOrigin(origins="*")
-    @RequestMapping(value = "/interested/{username}/{showId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/interested/{username}/{facilityId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Show>> getUserInterestedShowsByFacility(@PathVariable("username") String username, @PathVariable("facilityId") Long facilityId){
+        return new ResponseEntity<>(showService.findUserInterestedShowsByFacility(username, facilityId), HttpStatus.OK);
+
+    }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/interested/is/{username}/{showId}", method = RequestMethod.GET)
     public ResponseEntity<Boolean> isInterestedShow(@PathVariable("username") String username, @PathVariable("showId") Long showId){
         return new ResponseEntity<>(showService.isInterestedShow(username, showId), HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package com.showbook.pma.repository;
 
+import com.showbook.pma.model.Facility;
 import com.showbook.pma.model.Show;
 import com.showbook.pma.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,5 @@ public interface ShowRepository extends JpaRepository<Show, Long>   {
 
     List<Show> findAllByUsers(User user);
 
+    List<Show> findDistinctByUsersAndEvents_FacilityHall_Facility(User user, Facility facility);
 }
