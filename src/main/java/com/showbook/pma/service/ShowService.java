@@ -21,7 +21,6 @@ public class ShowService {
     @Autowired
     private FacilityService facilityService;
 
-
     public Show findOne(Long id) {
         return showRepository.findOne(id);
     }
