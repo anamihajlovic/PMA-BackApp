@@ -42,13 +42,13 @@ public class ShowService {
         List<Show> result = new ArrayList<>();
         List<Repertoire> allRepertoiresForFacility = facilityService.findOne(facilltyId).getRepertoires();
         for (int i = 0; i < allRepertoiresForFacility.size(); i++) {
-            System.out.println("Repertoar  id je " + allRepertoiresForFacility.get(i).getId());
+//            System.out.println("Repertoar  id je " + allRepertoiresForFacility.get(i).getId());
             if (allRepertoiresForFacility.get(i).getEnd().after(new Date())) {
-                System.out.println("Repertoar posle danas id je " + allRepertoiresForFacility.get(i).getId());
+//                System.out.println("Repertoar posle danas id je " + allRepertoiresForFacility.get(i).getId());
                 List<Event> foundEvents = allRepertoiresForFacility.get(i).getEvents();
                 for (int m = 0; m < foundEvents.size(); m++) {
                     if (!result.contains(foundEvents.get(m).getShow())) {
-                        System.out.println("Show je dodat a id je " + foundEvents.get(m).getShow().getId());
+//                        System.out.println("Show je dodat a id je " + foundEvents.get(m).getShow().getId());
                         result.add(foundEvents.get(m).getShow());
                     }
                 }

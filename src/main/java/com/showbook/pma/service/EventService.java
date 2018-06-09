@@ -1,8 +1,6 @@
 package com.showbook.pma.service;
 
-import com.showbook.pma.model.Event;
-import com.showbook.pma.model.Facility;
-import com.showbook.pma.model.Show;
+import com.showbook.pma.model.*;
 import com.showbook.pma.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,12 @@ public class EventService {
 
     @Autowired
     private FacilityService facilityService;
+
+    @Autowired
+    private FacilityHallService facilityHallService;
+
+    @Autowired
+    private RepertoireService repertoireService;
 
     public Event findOne(Long id){
         return eventRepository.findOne(id);
@@ -89,6 +93,34 @@ public class EventService {
         }
         return null;
     }
+
+    public List<SeatAvailability> findEventSeats(Long showId, Long facilityId, String facilityHallName, String dateString, String timeString) {
+        Show show = showService.findOne(showId);
+        Facility facility = facilityService.findOne(facilityId);
+        FacilityHall facilityHall = facilityHallService.findByFacilityAndName(facility, facilityHallName);
+
+        List<SeatAvailability> seats = new ArrayList<>();
+        String dateTimeString = dateString + " " + timeString;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+        try {
+            Date dateTime = sdf.parse(dateTimeString);
+            Repertoire repertoire = repertoireService.findRepertoireByFacilityAndDate(facility, dateTime);
+            if(show != null && facilityHall != null && repertoire != null) {
+               Event event = eventRepository.findByShowAndFacilityHallAndStartAndRepertoire(show, facilityHall, dateTime, repertoire);
+                for(SeatAvailability sa : event.getSeatAvailabilities()) {
+                    seats.add(sa);
+                }
+                return seats;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 
 
 }

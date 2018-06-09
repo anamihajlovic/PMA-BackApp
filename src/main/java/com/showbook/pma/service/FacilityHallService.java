@@ -1,5 +1,6 @@
 package com.showbook.pma.service;
 
+import com.showbook.pma.model.Facility;
 import com.showbook.pma.model.FacilityHall;
 import com.showbook.pma.repository.FacilityHallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class FacilityHallService {
 
     public void delete(FacilityHall facilityHall){
         facilityHallRepository.delete(facilityHall);
+    }
+
+    public FacilityHall findByFacilityAndName(Facility facility, String name) {
+        return facilityHallRepository.findByFacilityAndName(facility, name);
     }
 
 }

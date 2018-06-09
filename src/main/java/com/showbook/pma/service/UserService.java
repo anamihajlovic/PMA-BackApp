@@ -117,10 +117,6 @@ public class UserService {
     }
 
     public void sendMail(MailDto mailDto){
-        System.out.println(mailDto.getTo());
-        System.out.println(mailDto.getSubject());
-        System.out.println(mailDto.getText());
-        System.out.println(mailDto.getCommentUser());
         try {
             SimpleMailMessage mail = new SimpleMailMessage();
 

@@ -28,6 +28,9 @@ public class ReservationService {
     @Autowired
     private FacilityService facilityService;
 
+    @Autowired
+    private SeatAvailabilityService seatAvailabilityService;
+
     public Reservation findOne(Long id){
         return reservationRepository.findOne(id);
     }
@@ -77,16 +80,18 @@ public class ReservationService {
     }
 
     public void delete(Reservation reservation){
+        for (SeatAvailability sa: reservation.getSeats()) {
+            sa.setStatus(SeatAvailability.Status.FREE);
+            seatAvailabilityService.save(sa);
+        }
         reservationRepository.delete(reservation);
     }
 
     public void rating(Long id, String username, Integer num ) {
         Reservation reservation = reservationRepository.findOne(id);
         User user = userService.findByUsername(username);
-        System.out.println("reserva je " + reservation.getRating());
 
         if (reservation.getRating() == null) {
-            System.out.println("uslo u prvo ");
             Rating rating = new Rating();
             rating.setNum(num);
             rating.setShow(reservation.getEvent().getShow());
@@ -106,7 +111,6 @@ public class ReservationService {
             reservationRepository.save(reservation);
 
         } else {
-            System.out.println("uslo u drugo ");
             Rating rating = ratingRepository.findOne(reservation.getRating().getId());
             Integer oldNum = rating.getNum();
             rating.setNum(num);
