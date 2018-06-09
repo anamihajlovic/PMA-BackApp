@@ -63,19 +63,6 @@ public class UserController {
         return new ResponseEntity<>(userService.update(user, username, location), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins="*")
-    @RequestMapping(value = "/preferences/{username}", method = RequestMethod.PUT)
-    public ResponseEntity<UserPreferencesDto> changePreferences(@RequestBody UserPreferencesDto userPreferencesDto, @PathVariable("username") String username){
-        return new ResponseEntity<>(userService.changePreferences(userPreferencesDto, username), HttpStatus.OK);
-    }
-
-    @CrossOrigin(origins="*")
-    @RequestMapping(value = "/preferences/{username}", method = RequestMethod.GET)
-    public ResponseEntity<UserPreferencesDto> getPreferences(@PathVariable("username") String username){
-        return new ResponseEntity<>(userService.getPreferences( username), HttpStatus.OK);
-    }
-
-
     @RequestMapping(value = "/{username}/show/{showId}", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getUsersForNotifications(@PathVariable("username") String username, @PathVariable("showId") Long showId){
         return new ResponseEntity<>(userService.getUsersForNotifications(username, showId), HttpStatus.OK);
@@ -99,6 +86,14 @@ public class UserController {
         userService.sendMail(mailDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/preferences/{username}", method = RequestMethod.PUT)
+    public ResponseEntity changePreferences(@RequestBody UserPreferencesDto userPreferencesDto, @PathVariable("username") String username){
+        userService.changePreferences(userPreferencesDto, username);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 
 

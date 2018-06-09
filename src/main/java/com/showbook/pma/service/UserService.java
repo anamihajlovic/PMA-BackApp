@@ -91,20 +91,6 @@ public class UserService {
 
     }
 
-
-    public UserPreferencesDto getPreferences(String username) {
-        User user = userRepository.findByUsername(username);
-        if(user!=null) {
-            UserPreferencesDto userPreferencesDto = new UserPreferencesDto();
-          //  userPreferencesDto.setCommentNotification(user.);
-        }
-        return null;
-    }
-
-    public UserPreferencesDto changePreferences(UserPreferencesDto newUserPreferences, String username) {
-
-        return null;
-    }
     public List<User> getUsersForNotifications(String username, Long showId) {
         User user = userRepository.findByUsername(username);
         Show show = showRepository.findOne(showId);
@@ -148,6 +134,21 @@ public class UserService {
 
         } catch (Exception e) {
             System.out.println("Greska prilikom slanja mail-a.");
+        }
+    }
+
+
+    public void changePreferences(UserPreferencesDto newUserPreferences, String username) {
+        User user = userRepository.findByUsername(username);
+        if(user!=null) {
+            if(newUserPreferences.getCommentNotification()!=null){
+                user.setCommentNotification(newUserPreferences.getCommentNotification());
+            }else if(newUserPreferences.getMaxDistance()!=null){
+                user.setMaxDistance(newUserPreferences.getMaxDistance());
+            }else if(newUserPreferences.getFacilityType()!=null){
+                user.setFacilityType(newUserPreferences.getFacilityType());
+            }
+           userRepository.save(user);
         }
     }
 
