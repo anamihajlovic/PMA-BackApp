@@ -2,6 +2,7 @@ package com.showbook.pma.service;
 
 
 import com.showbook.pma.controller.dto.UserCredentialsDto;
+import com.showbook.pma.controller.dto.UserPreferencesDto;
 import com.showbook.pma.model.Location;
 import com.showbook.pma.model.User;
 import com.showbook.pma.repository.LocationRepository;
@@ -73,6 +74,20 @@ public class UserService {
         }
         return null;
 
+    }
+
+    public UserPreferencesDto getPreferences(String username) {
+        User user = userRepository.findByUsername(username);
+        if(user!=null) {
+            UserPreferencesDto userPreferencesDto = new UserPreferencesDto();
+          //  userPreferencesDto.setCommentNotification(user.);
+        }
+        return null;
+    }
+
+    public UserPreferencesDto changePreferences(UserPreferencesDto newUserPreferences, String username){
+
+        return null;
     }
 
 

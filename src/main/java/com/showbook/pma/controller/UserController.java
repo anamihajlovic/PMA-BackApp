@@ -3,6 +3,7 @@ package com.showbook.pma.controller;
 
 
 import com.showbook.pma.controller.dto.UserCredentialsDto;
+import com.showbook.pma.controller.dto.UserPreferencesDto;
 import com.showbook.pma.model.User;
 import com.showbook.pma.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,20 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("username") String username, @PathVariable("location") String location){
         return new ResponseEntity<>(userService.update(user, username, location), HttpStatus.OK);
     }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/preferences/{username}", method = RequestMethod.PUT)
+    public ResponseEntity<UserPreferencesDto> changePreferences(@RequestBody UserPreferencesDto userPreferencesDto, @PathVariable("username") String username){
+        return new ResponseEntity<>(userService.changePreferences(userPreferencesDto, username), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/preferences/{username}", method = RequestMethod.GET)
+    public ResponseEntity<UserPreferencesDto> getPreferences(@PathVariable("username") String username){
+        return new ResponseEntity<>(userService.getPreferences( username), HttpStatus.OK);
+    }
+
+
 
 
 }
