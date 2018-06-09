@@ -4,6 +4,7 @@ package com.showbook.pma.controller;
 
 import com.showbook.pma.controller.dto.MailDto;
 import com.showbook.pma.controller.dto.UserCredentialsDto;
+import com.showbook.pma.controller.dto.UserPreferencesDto;
 import com.showbook.pma.model.User;
 import com.showbook.pma.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,6 @@ public class UserController {
         return new ResponseEntity<>(userService.update(user, username, location), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins="*")
     @RequestMapping(value = "/{username}/show/{showId}", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getUsersForNotifications(@PathVariable("username") String username, @PathVariable("showId") Long showId){
         return new ResponseEntity<>(userService.getUsersForNotifications(username, showId), HttpStatus.OK);
@@ -86,6 +86,14 @@ public class UserController {
         userService.sendMail(mailDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @CrossOrigin(origins="*")
+    @RequestMapping(value = "/preferences/{username}", method = RequestMethod.PUT)
+    public ResponseEntity changePreferences(@RequestBody UserPreferencesDto userPreferencesDto, @PathVariable("username") String username){
+        userService.changePreferences(userPreferencesDto, username);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 
 

@@ -3,6 +3,7 @@ package com.showbook.pma.service;
 
 import com.showbook.pma.controller.dto.MailDto;
 import com.showbook.pma.controller.dto.UserCredentialsDto;
+import com.showbook.pma.controller.dto.UserPreferencesDto;
 import com.showbook.pma.model.Location;
 import com.showbook.pma.model.Show;
 import com.showbook.pma.model.User;
@@ -130,9 +131,25 @@ public class UserService {
         } catch (Exception e) {
             System.out.println("Greska prilikom slanja mail-a.");
         }
-
-
     }
+
+
+    public void changePreferences(UserPreferencesDto newUserPreferences, String username) {
+        User user = userRepository.findByUsername(username);
+        if(user!=null) {
+            if(newUserPreferences.getCommentNotification()!=null){
+                user.setCommentNotification(newUserPreferences.getCommentNotification());
+            }else if(newUserPreferences.getMaxDistance()!=null){
+                user.setMaxDistance(newUserPreferences.getMaxDistance());
+            }else if(newUserPreferences.getFacilityType()!=null){
+                user.setFacilityType(newUserPreferences.getFacilityType());
+            }
+           userRepository.save(user);
+        }
+    }
+
+
+
 
 
 }
