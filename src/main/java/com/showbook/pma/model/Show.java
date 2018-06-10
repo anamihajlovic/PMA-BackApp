@@ -61,7 +61,8 @@ public class Show {
     @JoinTable(
             name = "user_interestedShow",
             joinColumns = { @JoinColumn(name = "show_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+            inverseJoinColumns = { @JoinColumn(name = "user_id") },
+            uniqueConstraints = @UniqueConstraint(columnNames={"show_id", "user_id"})
     )
     private List<User> users = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package com.showbook.pma.repository;
 
+import com.showbook.pma.model.Facility;
 import com.showbook.pma.model.FacilityHall;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +14,7 @@ public interface FacilityHallRepository extends JpaRepository<FacilityHall, Long
     FacilityHall findOne(@Param("id")Long id);
 
     List<FacilityHall> findByFacilityId(Long facilityId);
+
+    FacilityHall findByFacilityAndName(Facility facility, String name);
 
 }

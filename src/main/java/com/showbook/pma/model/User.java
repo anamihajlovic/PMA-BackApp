@@ -28,8 +28,17 @@ public class User {
     @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
+    private String email;
+
+    @Column
+    private String token;
+
     @Column
     private Integer maxDistance;
+
+    @Column
+    private Boolean commentNotification;
 
     public enum FacilityType {
         ALL,
@@ -53,7 +62,8 @@ public class User {
     @JoinTable(
             name = "user_interestedShow",
             joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "show_id") }
+            inverseJoinColumns = { @JoinColumn(name = "show_id") },
+            uniqueConstraints = @UniqueConstraint(columnNames={"user_id", "show_id"})
     )
     private List<Show> interestedShows = new ArrayList<>();
 
@@ -63,16 +73,19 @@ public class User {
 
     public  User() {}
 
-    public User(Long id, String firstName, String lastName, String username, String password, String address, Integer maxDistance,
-                FacilityType facilityType, Location location, List<Reservation> reservations, List<Show> interestedShows,
-                List<Comment> comments) {
+    public User(Long id, String firstName, String lastName, String username, String password, String address,
+                String email, String token, Integer maxDistance, Boolean commentNotification, FacilityType facilityType, Location location,
+                List<Reservation> reservations, List<Show> interestedShows, List<Comment> comments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.address = address;
+        this.email = email;
+        this.token = token;
         this.maxDistance = maxDistance;
+        this.commentNotification = commentNotification;
         this.facilityType = facilityType;
         this.location = location;
         this.reservations = reservations;
@@ -174,5 +187,29 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Boolean isCommentNotification() {
+        return commentNotification;
+    }
+
+    public void setCommentNotification(Boolean commentNotification) {
+        this.commentNotification = commentNotification;
     }
 }

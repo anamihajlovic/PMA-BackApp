@@ -25,7 +25,7 @@ public class Reservation {
     @ManyToOne(optional = false)
     private Event event;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "reservation_seatAvailability",
             joinColumns = { @JoinColumn(name = "reservation_id") },
