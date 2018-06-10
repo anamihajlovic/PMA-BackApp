@@ -1,5 +1,6 @@
 package com.showbook.pma.service;
 
+import com.showbook.pma.controller.dto.ReservationInfo;
 import com.showbook.pma.model.*;
 import com.showbook.pma.repository.RatingRepository;
 import com.showbook.pma.repository.ReservationRepository;
@@ -30,6 +31,9 @@ public class ReservationService {
 
     @Autowired
     private SeatAvailabilityService seatAvailabilityService;
+
+    @Autowired
+    private EventService eventService;
 
     public Reservation findOne(Long id){
         return reservationRepository.findOne(id);
@@ -67,9 +71,9 @@ public class ReservationService {
 
         List<Reservation> seenShows = new ArrayList<>();
         Date currentDate = new Date();
-        for (int i = 0; i< reservations.size() ;i ++) {
-            if (reservations.get(i).getEvent().getEnd().before(currentDate)) {
-                seenShows.add(reservations.get(i));
+        for (Reservation reservation : reservations) {
+            if (reservation.getEvent().getEnd().before(currentDate)) {
+                seenShows.add(reservation);
             }
         }
         return seenShows;
@@ -121,5 +125,32 @@ public class ReservationService {
             showService.save(show);
 
         }
+    }
+
+    public Reservation makeReservation(ReservationInfo reservationInfo) {
+        User user = userService.findByUsername(reservationInfo.getUsername());
+        Event event = eventService.findOne(reservationInfo.getEventId());
+
+        List<SeatAvailability> seats = new ArrayList<>();
+        for(Long seatAvailabilityId : reservationInfo.getSelectedSeats()) {
+            SeatAvailability seatAvailability = seatAvailabilityService.findOne(seatAvailabilityId);
+            seats.add(seatAvailability);
+        }
+
+        if(user != null && event != null && seats.size() > 0) {
+            Reservation reservation = new Reservation();
+            reservation.setTotalPrice(event.getPrice() * seats.size());
+            reservation.setUser(user);
+            reservation.setEvent(event);
+            reservation.setSeats(seats);
+            Reservation newReservation = reservationRepository.save(reservation);
+            for(SeatAvailability seat : seats) {
+                seat.setStatus(SeatAvailability.Status.RESERVED);
+                seatAvailabilityService.save(seat);
+            }
+            return newReservation;
+        }
+
+        return null;
     }
 }
