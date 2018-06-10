@@ -41,7 +41,7 @@ public class ReservationService {
         List<Reservation> reservations = new ArrayList<>();
         Date currentDate = new Date();
         for (Reservation res: all) {
-            if (res.getEvent().getStart().compareTo(currentDate) >= 0) {
+            if (res.getEvent().getStart().compareTo(currentDate) > 0) {
                 reservations.add(res);
             }
         }
@@ -52,7 +52,15 @@ public class ReservationService {
         User user = userService.findByUsername(username);
         Facility facility = facilityService.findOne(facilityId);
         if(user != null && facility != null) {
-            return reservationRepository.findAllByUserAndEvent_FacilityHall_Facility(user, facility);
+            List<Reservation> allReservations = reservationRepository.findAllByUserAndEvent_FacilityHall_Facility(user, facility);
+            List<Reservation> reservations = new ArrayList<>();
+            Date currentDate = new Date();
+            for (Reservation reservation: allReservations) {
+                if (reservation.getEvent().getStart().compareTo(currentDate) > 0) {
+                    reservations.add(reservation);
+                }
+            }
+            return reservations;
         }
         return null;
     }
