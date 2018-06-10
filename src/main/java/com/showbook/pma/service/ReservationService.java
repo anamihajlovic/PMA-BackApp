@@ -85,8 +85,9 @@ public class ReservationService {
 
     public void delete(Reservation reservation){
         for (SeatAvailability sa: reservation.getSeats()) {
-            sa.setStatus(SeatAvailability.Status.FREE);
-            seatAvailabilityService.save(sa);
+            SeatAvailability saDB = seatAvailabilityService.findOne(sa.getId());
+            saDB.setStatus(SeatAvailability.Status.FREE);
+            seatAvailabilityService.save(saDB);
         }
         reservationRepository.delete(reservation);
     }
