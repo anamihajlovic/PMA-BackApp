@@ -57,7 +57,9 @@ public class UserService {
     }
 
     public User registr (User user, Long id_city) {
-        if(userRepository.findByUsername(user.getUsername()) == null){
+        System.out.println("uporedi sa userom " + userRepository.findByUsername(user.getUsername()));
+        System.out.println("uporedi sa emailom " + userRepository.findByEmail(user.getEmail()));
+        if(userRepository.findByUsername(user.getUsername()) == null && userRepository.findByEmail(user.getEmail()) ==null){
             user.setFacilityType(User.FacilityType.ALL);
             Location location = locationRepository.findOne(id_city);
             user.setLocation(location);
